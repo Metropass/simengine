@@ -22,5 +22,13 @@ else
     echo "rpms appears to exist at ${RPMS_DIR}"
 fi
 
-echo "sudo is required to install RPMs"
-sudo dnf install "${RPMS_DIR}"/**/*.rpm
+cd "${SE_DIR}"
+simengine_latest_version=$(git \
+    tag \
+    --sort version:refname \
+    | tail -1 \
+)
+echo "latest SimEngine version is [${simengine_latest_version}]"
+
+echo "sudo is required to install SimEngine RPMs"
+sudo dnf install "${RPMS_DIR}"/**/simengine*-${simengine_latest_version}-*.rpm
