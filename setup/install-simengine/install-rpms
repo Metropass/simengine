@@ -8,8 +8,17 @@ REMOTE="git@github.com:Seneca-CDOT/simengine.git"
 SE_DIR="${HOME}/simengine"
 RPMS_DIR="${HOME}/rpmbuild/RPMS"
 
-if [[ ! -d "${SE_DIR}" ]]; then
+if [[ ! -d "${SE_DIR}" ]]
+then
     git clone "${REMOTE}" "${SE_DIR}"
+
+    if [[ $? -ne 0 ]]
+    then
+        echo "error: failed to clone simengine repo" >&2
+
+        exit 1
+    fi
+
     echo "simengine repo cloned; please do not relocate the repo until the setup is over"
 else
     echo "simengine repo appears to exist at ${SE_DIR}"
